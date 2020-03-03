@@ -5,7 +5,8 @@ export const axiosWithAuth = () => {
     return axios.create({
         baseURL: 'https://essentialism4-backend.herokuapp.com/',
         headers: {
-            Authorization: token
+            Authorization: token,
+            'Content-type': 'application/json'
         }
     })
 }
