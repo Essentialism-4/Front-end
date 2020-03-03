@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 
-import { initialState } from './reducers/initialState';
-import { userState } from './reducers/userState';
+import { initialStateReducer as original } from './reducers/initialState';
+import { userStateReducer as user } from './reducers/userState';
 
 export default combineReducers({
-    initialState,
-    userState
+    original,
+    user
 })
