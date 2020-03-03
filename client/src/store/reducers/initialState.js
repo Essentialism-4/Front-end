@@ -1,3 +1,5 @@
+const initialState = {}
+
 export const initialStateReducer = (state = initialState, { type, payload }) => {
     switch(type) {
         default:
