@@ -7,15 +7,13 @@ import { Link } from 'react-router-dom'
 
 
 let Login = ({ values, status, errors, touched }) => {
-    let [userData, setUserData] = useState([])
+    // let [userData, setUserData] = useState([])
+
     // console.log(userData)
 
     // useEffect (() => {
-    //     status&&setUserData(userData => [...userData, status])
-    // }, [status])
-    useEffect (() => {
-        status&&setUserData (userData => [...userData, status])
-    }, [status]);
+    //     status&&setUserData (userData => [...userData, status])
+    // }, [status]);
 
     return (
         <div>
@@ -29,6 +27,7 @@ let Login = ({ values, status, errors, touched }) => {
                 {touched.password && errors.password && ( <p>{errors.password}</p>)}
 
                 <button type='submit'>Login</button>
+                <p>Don't have an account? <Link to = '/register'>Click Here</Link></p>
             </Form>
         </div>
     )
@@ -46,16 +45,17 @@ let FormikLogin = withFormik({
         password: Yup.string().required('Password Field Required!'),
     }),
 
-    handleSubmit(values, {setStatus, resetForm}){
-        axios.post('https://essentialism4-backend.herokuapp.com/api/auth/login', values)
-        .then(res => {
-            setStatus(res.data)
-            resetForm()
-            
-        })
-        .catch(err => {
-            console.log('error submitting', err)
-        })
+    handleSubmit(values, {setStatus, resetForm, props}){
+        axios
+          .post("https://essentialism4-backend.herokuapp.com/api/auth/login", values)
+          .then(res => {
+            console.log(res)
+            setStatus(res.data);
+            localStorage.setItem('token', res.data.credentials.token);
+            props.history.push('/user-profile');
+            resetForm();
+          })
+          .catch(err => console.log(err));
     }
 })(Login);
 

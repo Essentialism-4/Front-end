@@ -11,21 +11,21 @@ flex-direction: column;
 align-items: center;
 `;
 
-let StyleForm = styled.form`
+let StyleForm = styled(Form)`
 display: flex;
 flex-direction: column;
 width: 50%;
 `;
 
 let Registration = ({ values, status, errors, touched }) => {
-    let [newRegistration, setNewRegistration] = useState([]);
+    // let [newRegistration, setNewRegistration] = useState([]);
 
-    useEffect (() => {
-        status&&setNewRegistration (newRegistration => [...newRegistration, status])
-    }, [status]);
-    console.log(newRegistration)
+    // useEffect (() => {
+    //     status&&setNewRegistration (newRegistration => [...newRegistration, status])
+    // }, [status]);
+    // console.log(newRegistration)
     // console.log(status)
-    console.log(values)
+    // console.log(values)
     return (
         <Container className='Form-Container'>
             <StyleForm>
@@ -41,6 +41,7 @@ let Registration = ({ values, status, errors, touched }) => {
                 {touched.password && errors.password && ( <p>{errors.password}</p>)}
                 
                 <button type='submit'>Submit</button>
+                <p>Already have an account?<Link to = '/login'>Sign in Here</Link></p>
 
                 {/* <label htmlFor='email'>E-mail: </label>
                 <Field id='email' type='email' name='email' placeholder='Enter Email'/> */}
@@ -62,14 +63,12 @@ let FormikRegistration = withFormik({
         password: Yup.string().required('Password Field Required!'),
     }),
 
-    handleSubmit(values, {setStatus, resetForm}){
+    handleSubmit(values, {setStatus, resetForm, props}){
         axios.post('https://essentialism4-backend.herokuapp.com/api/auth/register', values)
         .then(res => {
-            setStatus(res.data)
-            resetForm()
-            // let history = useHistory()
-            // history.push('/login')
-            
+            setStatus(res.data);
+            props.history.push('/select-values');
+            resetForm();
         })
         .catch(err => {
             console.log('error submitting', err)
