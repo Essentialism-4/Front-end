@@ -41,7 +41,7 @@ let Registration = ({ values, status, errors, touched }) => {
                 {touched.password && errors.password && ( <p>{errors.password}</p>)}
                 
                 <button type='submit'>Submit</button>
-                <p>Already have an account?<Link to = '/login'>Sign in Here</Link></p>
+                <p>Already have an account?<Link to = '/'>Sign in Here</Link></p>
 
                 {/* <label htmlFor='email'>E-mail: </label>
                 <Field id='email' type='email' name='email' placeholder='Enter Email'/> */}

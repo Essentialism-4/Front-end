@@ -30,7 +30,7 @@ export const getUserInfo = () => dispatch => {
     dispatch({ type: GET_USER_START });
     const id = localStorage.getItem('id')
     axiosWithAuth()
-        .get(`api/auth/${id}`)
+        .get(`https://essentialism4-backend.herokuapp.com/api/auth/${id}`)
         .then(res => {
             dispatch({ type: GET_USER_SUCCESS, payload: res.data });
         })

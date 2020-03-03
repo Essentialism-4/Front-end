@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
 import PrivateRoute from "./components/PrivateRoute";
@@ -22,12 +23,19 @@ function App({getUserInfo}) {
   return (
     <Router>
       <div className="App">
-        <Route path = {'/' || '/login'} component = {Login} />
+        <Route exact path = {'/'} component = {Login} />
         <Route exact path = '/register' component = {Registration} />
-        <PrivateRoute exact path = '/'  component = {ValueList} />
+        <PrivateRoute exact path = '/select-values'  component = {ValueList} />
       </div>
     </Router>
   );
 }
 
-export default App;
+const mapStateToProps = state => {
+  return {};
+}
+
+export default connect (
+  mapStateToProps,
+  { getUserInfo }
+)(App);
