@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from 'react';
+import { connect, useDispatch } from 'react-redux';
 import axios from 'axios';
 import * as Yup from 'yup';
 import { withFormik, Form, Field } from 'formik';
-import { Link, useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import history from '../history';
+
+import { register } from '../store/actions/login.actions';
+
 import styled from 'styled-components';
 
 let Container = styled.div`
@@ -17,15 +22,32 @@ flex-direction: column;
 width: 50%;
 `;
 
-let Registration = ({ values, status, errors, touched }) => {
-    // let [newRegistration, setNewRegistration] = useState([]);
+let Registration = ({ values, isSubmitting, isValidating, errors, touched, postUser }) => {
+    let [newRegistration, setNewRegistration] = useState([]);
+    const dispatch = useDispatch();
+
+    const handleClick = async() => {
+        try {
+            await dispatch(
+              register({ username: values.username, password: values.password })
+            );
+            history.push("/select-values");
+          } catch (err) {
+            console.log(err);
+          }
+    }
+
+    // const setUser = e => {
+    //     e.preventDefault()
+    //     props.register(newRegistration);
+    // }
 
     // useEffect (() => {
     //     status&&setNewRegistration (newRegistration => [...newRegistration, status])
     // }, [status]);
-    // console.log(newRegistration)
-    // console.log(status)
-    // console.log(values)
+
+    console.log(newRegistration)
+    console.log(values)
     return (
         <Container className='Form-Container'>
             <StyleForm>
@@ -40,8 +62,8 @@ let Registration = ({ values, status, errors, touched }) => {
                 <Field id='password' type='password' name='password' placeholder='Create Password' value={values.password}/>
                 {touched.password && errors.password && ( <p>{errors.password}</p>)}
                 
-                <button type='submit'>Submit</button>
-                <p>Already have an account?<Link to = '/'>Sign in Here</Link></p>
+                <button type='submit' onClick = {handleClick} disabled = {isSubmitting}>Sign Up</button>
+                <p>Already have an account?<Link to = '/' disabled = {isSubmitting}>Sign in Here</Link></p>
 
                 {/* <label htmlFor='email'>E-mail: </label>
                 <Field id='email' type='email' name='email' placeholder='Enter Email'/> */}
@@ -51,11 +73,11 @@ let Registration = ({ values, status, errors, touched }) => {
     )
 }
 
-let FormikRegistration = withFormik({
+export default withFormik({  
     mapPropsToValues({ username, password }) {
         return {
             username: username || '',
-            password: password || ''
+            password: password || '',
         };
     },
     validationSchema: Yup.object().shape({
@@ -63,17 +85,77 @@ let FormikRegistration = withFormik({
         password: Yup.string().required('Password Field Required!'),
     }),
 
-    handleSubmit(values, {setStatus, resetForm, props}){
-        axios.post('https://essentialism4-backend.herokuapp.com/api/auth/register', values)
-        .then(res => {
-            setStatus(res.data);
-            props.history.push('/select-values');
-            resetForm();
-        })
-        .catch(err => {
-            console.log('error submitting', err)
-        })
+    handleSubmit:(values, { resetForm }) => {
+        resetForm();
     }
-})(Registration);
+})(connect(null, { register })(Registration));
 
-export default FormikRegistration;
+// export default FormikRegistration
+
+// const SignUpForm = props => {
+//     // console.log("this is props in Signupform", props);
+//     const initialState = {
+//       firstName: "",
+//       lastName: "",
+//       email: "",
+//       password: ""
+//     };
+  
+//     const [payload, setPayload] = useState(initialState);
+  
+//     const changeHandler = e => {
+//       setPayload({ ...payload, [e.target.name]: e.target.value }); // setting change handler to the "name" attribute. Avoids having to add handler to each input
+//     };
+  
+//     const submitHandler = e => {
+//       e.preventDefault();
+//       console.log("this is the object", payload);
+//       props.register(payload);
+//       setPayload({
+//         firstName: "",
+//         lastName: "",
+//         password: ""
+//       });
+//       props.history.push("/select-values");
+//     };
+//     return (
+//       <div>
+//         <form className="form" onSubmit={submitHandler}>
+//             <div>
+//               <label>
+//                 <input
+//                   className="input"
+    
+//                   type="text"
+//                   name="firstName"
+//                   value={payload.firstName}
+//                   onChange={changeHandler}
+//                   placeholder="Enter First Name here"
+//                 />
+//               </label>
+//             </div>
+  
+//           <div>
+//             <label>
+//               <input
+//                 className="input"
+
+//                 type="text"
+//                 name="password"
+//                 value={payload.password}
+//                 onChange={changeHandler}
+//                 placeholder="Enter Password here"
+//               />
+//             </label>
+//           </div>
+  
+//           <div>
+//               <button type="submit">Sign-Up!</button>
+//               <p>Already have an account with us? <Link to = '/'>Click Here</Link></p>
+//           </div>
+//         </form>
+//       </div>
+//     );
+//   };
+  
+
