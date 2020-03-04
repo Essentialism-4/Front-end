@@ -17,7 +17,7 @@ import {
     userValues: [
       {
         id: "",
-        value: "",
+        name: "",
         value_description: ""
       }
     ]

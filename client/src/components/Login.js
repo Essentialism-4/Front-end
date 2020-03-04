@@ -11,7 +11,7 @@ import { login } from '../store/actions/login.actions';
 
 //DOWN BELOW IS FERNANDOS MVP
 let Login = ({ values, status, errors, touched, isSubmitting, login }) => {
-    let [userData, setUserData] = useState({username: '', password: ''})
+    let [userData, setUserData] = useState([])
 
     const handleClick = () => {
         login(values).then(() => history.push('/select-values'))
