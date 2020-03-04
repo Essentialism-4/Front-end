@@ -1,14 +1,18 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-export default function Navigation() {
+export default function Navigation(props) {
     return (
         <div>
-            <Link to='/registration'>
+            <Link to='/register'>
                 <button> Register </button>
             </Link>
-            <Link to='/login'>
+            <Link to='/'>
                 <button> Login</button>
+            </Link>
+            <button onClick = {props.logout}>Logout</button>
+            <Link to = '/select-values'>
+                <button>Selection</button>
             </Link>
         </div>
     )

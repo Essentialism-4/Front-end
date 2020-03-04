@@ -1,41 +1,42 @@
 import React, { useState, useEffect } from "react";
-import { connect } from 'react-redux';
-import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { Router, Route, Switch, Link } from "react-router-dom";
+import history from "./history";
 
 import PrivateRoute from "./components/PrivateRoute";
-import ValueList from './components/ValueList';
-import Login from './components/Login';
+import Values from "./components/Values";
+import Login from "./components/Login";
 import Registration from './components/Registration';
+import Navigation from "./components/Navigation";
 
-import { getUserInfo } from './store/actions/userActions';
+import { getValues } from "./store/actions/values.actions";
+import { logout } from "./store/actions/login.actions";
+
 
 import "./App.css";
 
-function App({getUserInfo}) {
-  const token = localStorage.getItem("token");
+function App() {
+  const loggedIn = useSelector(state => state.login.loggedIn);
+  const dispatch = useDispatch();
+  const loading = useSelector(state => state.login.isLoading);
+
+  const handleLogout = e => {
+    e.preventDefault()
+    dispatch(logout());
+  }
 
   useEffect(() => {
-    if(token) {
-      getUserInfo(token);
-    }
-  }, [token, getUserInfo]);
+    dispatch(getValues());
+  }, []);
 
   return (
-    <Router>
-      <div className="App">
-        <Route exact path = {'/'} component = {Login} />
-        <Route exact path = '/register' component = {Registration} />
-        <PrivateRoute exact path = '/select-values'  component = {ValueList} />
-      </div>
+    <Router history={history}>
+      <Navigation logout = {handleLogout}  />
+      <Route exact path = '/' component = {Login}  />
+      <Route exact path = '/register' component = {Registration} />
+      <PrivateRoute exact path='/select-values' component={Values} />
     </Router>
   );
 }
 
-const mapStateToProps = state => {
-  return {};
-}
-
-export default connect (
-  mapStateToProps,
-  { getUserInfo }
-)(App);
+export default App;
