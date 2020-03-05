@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Route } from "react-router-dom";
 
 import Navigation from "./Navigation";
@@ -12,13 +12,15 @@ import { getValues } from "../store/actions/valuesActions";
 const ValueList = () => {
   const dispatch = useDispatch();
 
+  const values = useSelector(state => state.values)
+
   const handleLogout = e => {
     e.preventDefault();
     dispatch(logout());
   };
 
   useEffect(() => {
-    dispatch(getValues());
+    console.log('This is values from value list', values)
   }, []);
 
   return (

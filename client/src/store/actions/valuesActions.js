@@ -1,4 +1,5 @@
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
+import { useSelector } from 'react-redux';
 
 export const VALUES_LOAD_START = "VALUES_LOAD_START";
 export const VALUES_LOAD_SUCCESS = "VALUES_LOAD_SUCCESS";
@@ -30,7 +31,7 @@ export const getValues = id => dispatch => {
         console.log('This is response of getValues', res)
       dispatch({
         type: VALUES_LOAD_SUCCESS,
-        payload: res.data
+        payload: res.data['All values']
       });
       console.log(res)
       localStorage.setItem("values", JSON.stringify(res.data['All values']));

@@ -210,58 +210,5 @@ export default withFormik({
 
 // export default FormikLogin;
 
-// DOWN BELOW IS  FORM SIGN IN
 
-// const SignInForm = (props) => {
-//     const [credentials, setCredentials] = useState({
-//       email: '',
-//       password: '',
-//     });
-  
-//     const handleChange = (event) => {
-//       event.preventDefault();
-      
-//       setCredentials({
-//         ...credentials,
-//         [event.target.name]: event.target.value
-//       })
-//     }
-  
-//     const handleSubmit = (event) => {
-//       event.preventDefault();
-//       props.login(credentials);
-//       props.history.push('/user-profile')
-//       setTimeout(() => {
-//         props.history.push('/register');
-//       }, 800)
-//     }
-  
-//     return (
-//         <form onSubmit={handleSubmit}>
-//           <input
-//             name='email'
-//             type='text'
-//             placeholder="Email"
-//             value={credentials.email}
-//             onChange={handleChange}
-//             required
-//           />
-//           <input
-//             name='password'
-//             type='password'
-//             placeholder="Password"
-//             value={credentials.password}
-//             onChange={handleChange}
-//             required
-//           />
-//           <div>
-//             <button type="submit">Log in</button>
-//             <p>Don't have an account? <Link to = '/register'>Click Here</Link></p>
-//           </div>
-//         </form>
-        
-//     )
-//   }
-  
-  
   
