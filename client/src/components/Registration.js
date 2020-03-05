@@ -31,7 +31,7 @@ let Registration = ({ values, isSubmitting, isValidating, errors, touched, postU
             await dispatch(
               register({ username: values.username, password: values.password })
             );
-            history.push("/select-values");
+            history.push("/");
           } catch (err) {
             console.log(err);
           }
