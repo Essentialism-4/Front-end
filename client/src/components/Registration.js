@@ -84,7 +84,6 @@ let NewLogo = styled.img`
 width: 60%;
 `;
 
-<<<<<<< HEAD
 let SubText1 = styled.h2`
 width: 90%;
 `;
@@ -177,11 +176,6 @@ font-weight: 600;
 // ********************** STYLED COMPONENTS END ********************************
 
 let Registration = ({ values, isSubmitting, isValidating, errors, touched, postUser }) => {
-||||||| merged common ancestors
-let Registration = ({ values, isSubmitting, isValidating, errors, touched, postUser }) => {
-=======
-let Registration = ({ values, isSubmitting, isValidating, errors, touched }) => {
->>>>>>> 174da761a9aa204b71a6bba04054a4b914b89d6a
     let [newRegistration, setNewRegistration] = useState([]);
     const dispatch = useDispatch();
 

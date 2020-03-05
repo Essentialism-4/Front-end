@@ -43,7 +43,6 @@ function App() {
       <Route exact path="/" component={Login} />
       <Route exact path="/register" component={Registration} />
       <PrivateRoute exact path="/select-values" component={ValueList} />
-      
     </Router>
   );
 }
