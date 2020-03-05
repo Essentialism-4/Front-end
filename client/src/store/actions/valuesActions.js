@@ -41,10 +41,11 @@ export const getValues = id => dispatch => {
     });
 };
 
-export const postValues = value => dispatch => {
+export const putValues = value => dispatch => {
+  const id = localStorage.getItem('id');
   dispatch({ type: VALUES_POST_START, payload: value });
   return axiosWithAuth()
-    .post(`/values`, value)
+    .put(`/api/users/${id}/values/top`, value)
     .then(res => {
       dispatch({
         type: VALUES_POST_SUCCESS,
@@ -59,7 +60,7 @@ export const postValues = value => dispatch => {
     });
 };
 
-export const putValues = value => dispatch => {
+export const postValues = value => dispatch => {
   dispatch({ type: VALUES_PUT_START, payload: value });
   return axiosWithAuth()
     .post(`/values`, value)
