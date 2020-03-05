@@ -17,6 +17,7 @@ export const login = credentials => async dispatch => {
         dispatch({ type: LOGIN_START, payload: credentials });
         const user = await axiosWithAuth().post(`api/auth/login`, credentials);
         localStorage.setItem("token", JSON.stringify(user.data.token));
+        localStorage.setItem("id", JSON.stringify(user.data.id))
         return dispatch({
             type: LOGIN_SUCCESS,
             payload: {
@@ -40,7 +41,7 @@ export const login = credentials => async dispatch => {
           .then(res => {
             console.log(res);
             dispatch({ type: REGISTER_SUCCESS, payload: res.data });
-            localStorage.setItem("token", res.data.token);
+            localStorage.setItem("token", res.data);
             console.log('token ', res.data.token)
           })
           .catch(err => 

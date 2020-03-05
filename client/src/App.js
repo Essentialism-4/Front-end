@@ -4,14 +4,15 @@ import { Router, Route, Switch, Link } from "react-router-dom";
 import history from "./history";
 
 import PrivateRoute from "./components/PrivateRoute";
+import UserValues from './components/UserValues';
 import ValueList from './components/ValueList'
 import Login from "./components/Login";
 import Registration from "./components/Registration";
 import "./App.css";
 
+import UserProfile from './components/UserProfile';
 
 import { getValues } from "./store/actions/valuesActions";
-import { logout } from "./store/actions/loginActions";
 
 import styled from 'styled-components';
 import bg from './images/bg-main.jpg';
@@ -35,31 +36,17 @@ function App() {
   const dispatch = useDispatch();
   const loading = useSelector(state => state.login.isLoading);
 
-  const handleLogout = e => {
-    e.preventDefault();
-    dispatch(logout());
-  };
-
   useEffect(() => {
-    dispatch(getValues());
+    dispatch(getValues())
   }, []);
-
   return (
-    //Issac
-    // <Router history={history}>
-    //   <Navigation logout = {handleLogout}  />
-    //   <Route exact path = '/' component = {Login}  />
-    //   <Route exact path = '/register' component = {Registration} />
-    //   <PrivateRoute exact path='/select-values' component={Value} />
-    //   <PrivateRoute exact path='/user-values' component = {UserValues} />
-    // </Router>
-
-    //fernando's code, can be deleted
     <Background className='app-body'>
       <Router history={history}>
         <Route exact path="/" component={Login} />
         <Route exact path="/register" component={Registration} />
         <PrivateRoute exact path="/select-values" component={ValueList} />
+        <PrivateRoute exact path="/user-values" component={UserValues} />
+        <PrivateRoute exact path = '/user/:id/profile' component = {UserProfile} />
       </Router>
     </Background>
   );

@@ -1,4 +1,5 @@
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
+import { useSelector } from 'react-redux';
 
 export const VALUES_LOAD_START = "VALUES_LOAD_START";
 export const VALUES_LOAD_SUCCESS = "VALUES_LOAD_SUCCESS";
@@ -30,7 +31,7 @@ export const getValues = id => dispatch => {
         console.log('This is response of getValues', res)
       dispatch({
         type: VALUES_LOAD_SUCCESS,
-        payload: res.data
+        payload: res.data['All values']
       });
       console.log(res)
       localStorage.setItem("values", JSON.stringify(res.data['All values']));
@@ -41,10 +42,11 @@ export const getValues = id => dispatch => {
     });
 };
 
-export const postValues = value => dispatch => {
+export const putValues = value => dispatch => {
+  const id = localStorage.getItem('id');
   dispatch({ type: VALUES_POST_START, payload: value });
   return axiosWithAuth()
-    .post(`/values`, value)
+    .put(`/api/users/${id}/values/top`, value)
     .then(res => {
       dispatch({
         type: VALUES_POST_SUCCESS,
@@ -59,7 +61,7 @@ export const postValues = value => dispatch => {
     });
 };
 
-export const putValues = value => dispatch => {
+export const postValues = value => dispatch => {
   dispatch({ type: VALUES_PUT_START, payload: value });
   return axiosWithAuth()
     .post(`/values`, value)
