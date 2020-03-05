@@ -1,19 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import * as Yup from 'yup';
 import { withFormik, Form, Field } from 'formik';
 import { Link } from 'react-router-dom'
+import history from '../history';
+
+import { login } from '../store/actions/loginActions';
 // import styled from 'styled-components';
 
+//DOWN BELOW IS FERNANDOS MVP
+let Login = ({ values, status, errors, touched, isSubmitting, login }) => {
+    let [userData, setUserData] = useState({username: '', password: ''})
 
-let Login = ({ values, status, errors, touched }) => {
-    // let [userData, setUserData] = useState([])
+    const handleClick = () => {
+        login(values).then(() => history.push('/select-values'))
+    }
 
-    // console.log(userData)
+    console.log(userData)
 
-    // useEffect (() => {
-    //     status&&setUserData (userData => [...userData, status])
-    // }, [status]);
+    useEffect (() => {
+        status&&setUserData (userData => [...userData, status])
+    }, [status]);
 
     return (
         <div>
@@ -26,14 +34,14 @@ let Login = ({ values, status, errors, touched }) => {
                 <Field id='password' type='password' name='password' placeholder='Enter Password' value={values.password}/>
                 {touched.password && errors.password && ( <p>{errors.password}</p>)}
 
-                <button type='submit'>Login</button>
-                <p>Don't have an account? <Link to = '/register'>Click Here</Link></p>
+                <button type='submit' onClick = {handleClick} disabled = {isSubmitting}>Login</button>
+                <p>Don't have an account? <Link to = '/register' disabled = {isSubmitting}>Click Here</Link></p>
             </Form>
         </div>
     )
 }
 
-let FormikLogin = withFormik({
+export default withFormik({
     mapPropsToValues({ username, password }) {
         return {
             username: username || '',
@@ -45,18 +53,65 @@ let FormikLogin = withFormik({
         password: Yup.string().required('Password Field Required!'),
     }),
 
-    handleSubmit(values, {setStatus, resetForm, props}){
-        axios
-          .post("https://essentialism4-backend.herokuapp.com/api/auth/login", values)
-          .then(res => {
-            console.log(res)
-            setStatus(res.data);
-            localStorage.setItem('token', res.data.credentials.token);
-            props.history.push('/user-profile');
+    handleSubmit(values, { resetForm }){
             resetForm();
-          })
-          .catch(err => console.log(err));
     }
-})(Login);
+})(connect(null, { login })(Login));
 
-export default FormikLogin;
+// export default FormikLogin;
+
+// DOWN BELOW IS  FORM SIGN IN
+
+// const SignInForm = (props) => {
+//     const [credentials, setCredentials] = useState({
+//       email: '',
+//       password: '',
+//     });
+  
+//     const handleChange = (event) => {
+//       event.preventDefault();
+      
+//       setCredentials({
+//         ...credentials,
+//         [event.target.name]: event.target.value
+//       })
+//     }
+  
+//     const handleSubmit = (event) => {
+//       event.preventDefault();
+//       props.login(credentials);
+//       props.history.push('/user-profile')
+//       setTimeout(() => {
+//         props.history.push('/register');
+//       }, 800)
+//     }
+  
+//     return (
+//         <form onSubmit={handleSubmit}>
+//           <input
+//             name='email'
+//             type='text'
+//             placeholder="Email"
+//             value={credentials.email}
+//             onChange={handleChange}
+//             required
+//           />
+//           <input
+//             name='password'
+//             type='password'
+//             placeholder="Password"
+//             value={credentials.password}
+//             onChange={handleChange}
+//             required
+//           />
+//           <div>
+//             <button type="submit">Log in</button>
+//             <p>Don't have an account? <Link to = '/register'>Click Here</Link></p>
+//           </div>
+//         </form>
+        
+//     )
+//   }
+  
+  
+  
