@@ -31,13 +31,23 @@ function App() {
   }, []);
 
   return (
+    //Issac
+    // <Router history={history}>
+    //   <Navigation logout = {handleLogout}  />
+    //   <Route exact path = '/' component = {Login}  />
+    //   <Route exact path = '/register' component = {Registration} />
+    //   <PrivateRoute exact path='/select-values' component={Value} />
+    //   <PrivateRoute exact path='/user-values' component = {UserValues} />
+    // </Router>
+
+    //fernando's code, can be deleted
     <Router history={history}>
-      <Navigation logout = {handleLogout}  />
-      <Route exact path = '/' component = {Login}  />
-      <Route exact path = '/register' component = {Registration} />
-      <PrivateRoute exact path='/select-values' component={Value} />
-      <PrivateRoute exact path='/user-values' component = {UserValues} />
-    </Router>
+    {/* <Navigation logout = {handleLogout}  /> */}
+    <Route exact path = '/' component = {Login}  />
+    <Route exact path = '/register' component = {Registration} />
+    <PrivateRoute exact path='/select-values' component={Value} />
+    <PrivateRoute exact path='/user-values' component = {UserValues} />
+  </Router>
   );
 }
 
