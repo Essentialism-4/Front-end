@@ -22,7 +22,7 @@ flex-direction: column;
 width: 50%;
 `;
 
-let Registration = ({ values, isSubmitting, isValidating, errors, touched, postUser }) => {
+let Registration = ({ values, isSubmitting, isValidating, errors, touched }) => {
     let [newRegistration, setNewRegistration] = useState([]);
     const dispatch = useDispatch();
 
@@ -31,7 +31,7 @@ let Registration = ({ values, isSubmitting, isValidating, errors, touched, postU
             await dispatch(
               register({ username: values.username, password: values.password })
             );
-            history.push("/select-values");
+            history.push("/");
           } catch (err) {
             console.log(err);
           }
