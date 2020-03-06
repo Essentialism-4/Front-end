@@ -3,6 +3,78 @@ import history from '../history';
 import { useDispatch } from "react-redux";
 
 import { putValues } from "../store/actions/valuesActions";
+import Navigation from './Navigation';
+
+import styled from 'styled-components';
+
+// ********************** STYLED COMPONENTS ***************************************
+let Body = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+margin: auto;
+width: 80%;
+`;
+
+let ValuesContaier = styled.div`
+display: flex;
+flex-direction: row;
+flex-flow: wrap;
+justify-content: center;
+border: 2px solid rgba(255, 255, 255, 0.2);
+width: 75%;
+`;
+
+let Values = styled.div`
+color: rgba(255, 255, 255, 0.75);
+border: 2px solid rgba(255, 255, 255, 0.2);
+padding: 0 2%;
+margin: 1%;
+line-height: 25px;
+`;
+
+let SubTitle = styled.h3`
+text-align: center;
+font-size: 2rem;
+font-weight: 200;
+color: rgba(255, 255, 255, 0.75);
+border: 2px solid rgba(255, 255, 255, 0.2);
+padding: 10px;
+background-color: rgba(0, 0, 0, 0.1);
+box-shadow: 0 0 3px 2px rgb(0, 0, 0, .5);
+width: 100%;
+border-left: none;
+border-right: none;
+`;
+
+let InnerContainer = styled.div`
+display: flex;
+flex-direction: column;
+align-items: center;
+`;
+
+let ButtonContainer = styled.div`
+
+`;
+
+let Button = styled.button`
+width: 123px;
+height: 45px;
+font-size: 1.1rem;
+font-weight: 300;
+background-color: rgba(0, 0, 0, 0.4);
+border-color: rgba(255, 255, 255, 0.4)
+rgba(121, 58, 87, 0.94);
+color: rgba(255, 255, 255, 0.75);
+margin: 35px;
+&:hover{
+    background-color: rgba(0, 0, 0, 0.7);
+    cursor: pointer;
+    color: rgba(255, 255, 255, 1);
+    text-shadow: 5px 5px 50px white, 0 0 25px blueviolet, 0 0 5px white;
+}
+`;
+// ********************** STYLED COMPONENTS END ***********************************
 
 const UserValues = () => {
   const [topChoice, setTopChoice] = useState([]);
@@ -55,29 +127,34 @@ const UserValues = () => {
   // });
 
   return (
-    <div className="card-info">
-      <h3>Choose your top 3</h3>
-      {/* MAPPING OVER VALUES ORIGINALLY CHOSEN FROM VALUE LIST */}
-      {parsedValues.map(value => (
-        <div onClick={handleTopChoiceClick(value.id, value.name)}>
-          <p>{value.name}</p>
-        </div>
-      ))}
+    <Body>
+      <Navigation/>
+      <SubTitle>Choose your top 3</SubTitle>
+      <ValuesContaier className="card-info">
+        {/* MAPPING OVER VALUES ORIGINALLY CHOSEN FROM VALUE LIST */}
+        {parsedValues.map(value => (
+          <Values onClick={handleTopChoiceClick(value.id, value.name)}>
+            <p>{value.name}</p>
+          </Values>
+        ))}
+          </ValuesContaier>
 
-      <div>
-        <button onClick={handleTopChoiceClear}>Clear</button>
-      </div>
-      {/* MAPPING OVER USERS TOP 3 */}
-      {topChoice.map(value => (
-        <div key={value.id}>
-          <p>{value.name}</p>
-        </div>
-      ))}
+        <InnerContainer>
+          <ValuesContaier>
+          {/* MAPPING OVER USERS TOP 3 */}
+          {topChoice.map(value => (
+            <Values key={value.id}>
+              <p>{value.name}</p>
+            </Values>
+          ))}
+          </ValuesContaier>
 
-      <div>
-        <button onClick={handleConfirm}>Confirm</button>
-      </div>
-    </div>
+          <ButtonContainer>
+            <Button onClick={handleConfirm}>Confirm</Button>
+            <Button onClick={handleTopChoiceClear}>Clear</Button>
+          </ButtonContainer>
+        </InnerContainer>
+    </Body>
   );
 };
 

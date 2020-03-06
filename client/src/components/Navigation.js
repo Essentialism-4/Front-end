@@ -9,7 +9,7 @@ import Logo2 from '../images/logo-small-2.png';
 
 let Body = styled.body`
 width: 100%;
-padding-top: 20px
+padding-top: 20px;
 `;
 
 let Container = styled.div`
@@ -77,11 +77,11 @@ export default function Navigation(props) {
         //fernando's code, can be deleted 
         <Body className='body-container'>
             <Container className='nav-container'>
-                <a href='https://essentialism4.netlify.com/home.html'><TopLogo className='navlogo'/></a>
-                <Button onClick = {props.logout}>Logout</Button>
                 <NavLink to = '/select-values'>
                     <Button>Selection</Button>
                 </NavLink>
+                <a href='https://essentialism4.netlify.com/home.html'><TopLogo className='navlogo'/></a>
+                <Button onClick = {props.logout}>Logout</Button>
             </Container>
         </Body>
     )
