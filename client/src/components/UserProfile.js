@@ -10,7 +10,7 @@ import Navigation from './Navigation';
 import styled from 'styled-components';
 
 // ********************** STYLED COMPONENTS *******************************************
-let Body = styled.body`
+let Body = styled.section`
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -140,9 +140,9 @@ const UserProfile = () => {
       <Values>
         {values.map(value => {
           return (
-            <>
-              <p key={value.id}>{value.name}</p>
-            </>
+            <div key={value.id}>
+              <p>{value.name}</p>
+            </div>
           );
         })}
       </Values>
