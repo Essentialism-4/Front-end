@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState /*, useEffect*/ } from "react";
 import history from '../history';
 import { useDispatch } from "react-redux";
 
@@ -105,19 +105,16 @@ const UserValues = () => {
 
   const handleConfirm = e => {
     e.preventDefault();
-    //DISPATCH TO USER PROFULE GOES HERE
     
     const id = localStorage.getItem('id');
     localStorage.setItem("top3", JSON.stringify(topChoice));
 
     if (topChoice.length === 3) {
-      console.log(topChoice)
       let top3assigned = undefined;
       topChoice.map(choice => {
         top3assigned = Object.assign({ top3_values: choice.name });
-        setEachChoice([...eachChoice, top3assigned])
+        return setEachChoice([...eachChoice, top3assigned])
       })
-      console.log(eachChoice);
       dispatch(putValues(Object.assign({top3_values: eachChoice})));
     } else {
       return window.alert("Must choose 3 values to continue.");
@@ -125,10 +122,6 @@ const UserValues = () => {
 
     history.push(`/user/${id}/profile`)
   };
-
-  // useEffect(() => {
-  //   console.log(userProfile);
-  // });
 
   return (
     <Body>

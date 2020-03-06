@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import history from "../history";
 
 import { postUserValues } from "../store/actions/userValueActions";
@@ -82,7 +82,6 @@ const Value = () => {
     e.preventDefault();
     const assigned = Object.assign({ user_id: 1, name: clickedName });
     const userAssigned = Object.assign({ id: clickedId, name: clickedName });
-    console.log(assigned);
     setUserValues([...userValues, assigned]);
     setUserSelected([...userSelected, userAssigned]);
   };
@@ -90,7 +89,7 @@ const Value = () => {
   const handleConfirm = e => {
     e.preventDefault();
     userValues.map(value => {
-      dispatch(postUserValues(value));
+      return dispatch(postUserValues(value));
     });
     localStorage.setItem("userValues", JSON.stringify(userSelected));
     history.push("/user-values");
@@ -106,7 +105,6 @@ const Value = () => {
             return (
               <Values key={value.id}>
                 <p onClick={handleClick(value.id, value.name)}>{value.name}?</p>
-                {console.log(value)}
               </Values>
             );
           })}

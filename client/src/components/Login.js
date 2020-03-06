@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import { connect, useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
+import React /*, { useState } */ from 'react';
+import { connect, useDispatch/*, useSelector*/ } from 'react-redux';
+// import axios from 'axios';
 import * as Yup from 'yup';
 import { withFormik, Form, Field } from 'formik';
 import { Link } from 'react-router-dom'
-import history from '../history';
+
 
 import { login } from '../store/actions/loginActions';
 import styled from 'styled-components';
@@ -154,24 +154,20 @@ width: 100%;
 
 //DOWN BELOW IS FERNANDOS MVP
 let Login = ({ values, status, errors, touched, isSubmitting}) => {
-    let [userData, setUserData] = useState({username: '', password: ''})
+    // let [userData, setUserData] = useState({username: '', password: ''})
 
     const dispatch = useDispatch();
-    const isProfileSet = useSelector(state => state.userValues.isProfileSet)
+    // const isProfileSet = useSelector(state => state.userValues.isProfileSet)
 
     const handleClick = () => {
-        console.log(values)
         dispatch(login(values)) 
         // if(isProfileSet){
         //     history.push(`/user-profile`)
         // }
-        history.push('/select-values')
     }
-
 
     // useEffect (() => {
     //     status&&setUserData (userData => [...userData, status])
-    //     console.log(userData)
     // }, [status]);
 
     return (

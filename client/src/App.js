@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from "react";
-import { connect, useDispatch, useSelector } from "react-redux";
-import { Router, Route, Switch, Link } from "react-router-dom";
+import React, { /*useState,*/ useEffect } from "react";
+import { useDispatch /*, useSelector*/ } from "react-redux";
+import { Router, Route } from "react-router-dom";
 import history from "./history";
 
 import PrivateRoute from "./components/PrivateRoute";
@@ -36,13 +36,12 @@ height: 100vh;
 // ********************* STYLED COMPONENTS END *************************************
 
 function App() {
-  const loggedIn = useSelector(state => state.login.loggedIn);
   const dispatch = useDispatch();
-  const loading = useSelector(state => state.login.isLoading);
 
   useEffect(() => {
     dispatch(getValues())
-  }, []);
+  }, [dispatch]);
+
   return (
     <Background className='app-body'>
       <Router history={history}>

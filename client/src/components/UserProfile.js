@@ -1,15 +1,11 @@
-import React, { useState, useEffect } from "react";
-<<<<<<< HEAD
-import { useDispatch, useSelector } from "react-redux";
-||||||| merged common ancestors
-import { useDispatch } from "react-redux";
-=======
-import Navigation from './Navigation';
-import { useDispatch } from "react-redux";
->>>>>>> 0d0b4c3fd2cf8c9dae7950fc507af62dc1c7bd86
+import React, { useState } from "react";
+import { useDispatch, /*useSelector*/ } from "react-redux";
 
 import { putUserValues } from "../store/actions/userValueActions";
 import { putUserInvolvement } from "../store/actions/userValueActions";
+import { logout } from '../store/actions/loginActions';
+
+import Navigation from './Navigation';
 
 import styled from 'styled-components';
 
@@ -107,7 +103,7 @@ const UserProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   const dispatch = useDispatch();
-  const isProfileSet = useSelector(state => state.userValues.isProfileSet);
+//   const isProfileSet = useSelector(state => state.userValues.isProfileSet);
 
   const top3 = localStorage.getItem("top3");
   const values = JSON.parse(top3);
@@ -134,9 +130,13 @@ const UserProfile = () => {
     setIsEditing(false);
   };
 
+  const handleLogout = () => {
+      dispatch(logout())
+  }
+
   return (
     <Body>
-      <Navigation/>
+      <Navigation logout = {handleLogout}/>
       <Values>
         {values.map(value => {
           return (
@@ -159,7 +159,7 @@ const UserProfile = () => {
               name="reason"
               type="text"
               onChange={handleChanges}
-              placeholder="Explain your reason for choosing this value."
+              placeholder="Explain your reason for choosing these values."
             />
             <Input
               name="involvment"
