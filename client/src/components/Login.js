@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import axios from 'axios';
 import * as Yup from 'yup';
 import { withFormik, Form, Field } from 'formik';
@@ -153,18 +153,22 @@ width: 100%;
 // ********************** STYLED COMPONENTS END ********************************
 
 //DOWN BELOW IS FERNANDOS MVP
-let Login = ({ values, status, errors, touched, isSubmitting, login }) => {
+let Login = ({ values, status, errors, touched, isSubmitting}) => {
     let [userData, setUserData] = useState({username: '', password: ''})
 
+    const dispatch = useDispatch();
+
     const handleClick = () => {
-        login(values).then(() => history.push('/select-values'))
+        console.log(values)
+        dispatch(login(values)) 
+        history.push('/select-values')
     }
 
-    console.log(userData)
 
-    useEffect (() => {
-        status&&setUserData (userData => [...userData, status])
-    }, [status]);
+    // useEffect (() => {
+    //     status&&setUserData (userData => [...userData, status])
+    //     console.log(userData)
+    // }, [status]);
 
     return (
         <Body>
@@ -206,7 +210,7 @@ export default withFormik({
     handleSubmit(values, { resetForm }){
             resetForm();
     }
-})(connect(null, { login })(Login));
+})(connect(null)(Login));
 
 // export default FormikLogin;
 
