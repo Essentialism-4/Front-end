@@ -45,5 +45,6 @@ export const logout = () => dispatch => {
   localStorage.removeItem("token");
   localStorage.removeItem("id");
   localStorage.removeItem("userValues")
+  history.push('/')
   dispatch({ type: LOGOUT_SUCCESS });
 };
