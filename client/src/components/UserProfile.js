@@ -130,7 +130,8 @@ const UserProfile = () => {
     setIsEditing(false);
   };
 
-  const handleLogout = () => {
+  const handleLogout = e => {
+      e.preventDefault()
       dispatch(logout())
   }
 

@@ -1,5 +1,6 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import history from '../history';
 
 import styled from 'styled-components';
 import Logo from '../images/logo-small-1.png';
@@ -55,6 +56,11 @@ opacity: .8;
 }
 `;
 
+const handleClick = e => {
+    e.preventDefault();
+    history.push('/select-values')
+}
+
 
 export default function Navigation(props) {
     return (
@@ -77,8 +83,8 @@ export default function Navigation(props) {
         //fernando's code, can be deleted 
         <Body className='body-container'>
             <Container className='nav-container'>
-                <NavLink to = '/select-values'>
-                    <Button>Selection</Button>
+                <NavLink>
+                    <Button onClick = {handleClick}>Selection</Button>
                 </NavLink>
                 <a href='https://essentialism4.netlify.com/home.html'><TopLogo className='navlogo'/></a>
                 <Button onClick = {props.logout}>Logout</Button>
