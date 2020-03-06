@@ -18,7 +18,7 @@ import styled from 'styled-components';
 import bg from './images/bg-main.jpg';
 
 // ********************* STYLED COMPONENTS *****************************************
-let Background = styled.body`
+let Background = styled.section`
 background-image: url(${bg});
 background-position: center;
 background-size: cover;
