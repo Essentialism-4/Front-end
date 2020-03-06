@@ -78,10 +78,7 @@ margin: 35px;
 
 const UserValues = () => {
   const [topChoice, setTopChoice] = useState([]);
-  const [eachChoice, setEachChoice] = useState("");
-  const [reason, setReason] = useState("");
-  const [reasons, setReasons] = useState([]);
-  const [userProfile, setUserProfile] = useState([]);
+  const [eachChoice, setEachChoice] = useState([]);
 
   const values = localStorage.getItem("userValues");
   const parsedValues = JSON.parse(values);
@@ -109,12 +106,19 @@ const UserValues = () => {
   const handleConfirm = e => {
     e.preventDefault();
     //DISPATCH TO USER PROFULE GOES HERE
-    const top3assigned = Object.assign({ top3_values: topChoice });
+    
     const id = localStorage.getItem('id');
     localStorage.setItem("top3", JSON.stringify(topChoice));
 
-    if (top3assigned.top3_values.length === 3) {
-      dispatch(putValues(top3assigned));
+    if (topChoice.length === 3) {
+      console.log(topChoice)
+      let top3assigned = undefined;
+      topChoice.map(choice => {
+        top3assigned = Object.assign({ top3_values: choice.name });
+        setEachChoice([...eachChoice, top3assigned])
+      })
+      console.log(eachChoice);
+      dispatch(putValues(Object.assign({top3_values: eachChoice})));
     } else {
       return window.alert("Must choose 3 values to continue.");
     }
@@ -133,7 +137,7 @@ const UserValues = () => {
       <ValuesContaier className="card-info">
         {/* MAPPING OVER VALUES ORIGINALLY CHOSEN FROM VALUE LIST */}
         {parsedValues.map(value => (
-          <Values onClick={handleTopChoiceClick(value.id, value.name)}>
+          <Values key = {value.id} onClick={handleTopChoiceClick(value.id, value.name)}>
             <p>{value.name}</p>
           </Values>
         ))}
