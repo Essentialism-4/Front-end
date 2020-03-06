@@ -1,5 +1,5 @@
 import { axiosWithAuth } from "../../utils/axiosWithAuth";
-import axios from "axios";
+import history from '../../history';
 
 export const LOGIN_START = "LOGIN_START";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
@@ -17,35 +17,33 @@ export const login = credentials => dispatch => {
   return axiosWithAuth()
     .post("api/auth/login", credentials)
     .then(res => {
-      console.log("This is response in login: ", res);
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("id", res.data.id);
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
-      // history.push('/main-page');
+      history.push('/select-values')
     })
     .catch(err => {
-      // console.log(err);
       dispatch({ type: LOGIN_FAILED, payload: err });
     });
 };
 
 export const register = payload => dispatch => {
-  console.log(payload, "this is the payload in register");
   dispatch({ type: REGISTER_START });
   axiosWithAuth()
     .post("api/auth/register", payload)
     .then(res => {
-      console.log(res);
       dispatch({ type: REGISTER_SUCCESS, payload: res.data });
       localStorage.setItem("token", res.data);
-      console.log("token ", res.data.token);
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      dispatch({ type: REGISTER_FAILED, payload: err.response })
+    });
 };
 
 export const logout = () => dispatch => {
   dispatch({ type: LOGOUT_CLICKED });
   localStorage.removeItem("token");
   localStorage.removeItem("id");
+  localStorage.removeItem("userValues")
   dispatch({ type: LOGOUT_SUCCESS });
 };

@@ -41,16 +41,10 @@ export const getUserValues = userId => dispatch => {
   return axiosWithAuth()
     .get(`api/users/user-values`)
     .then(res =>
-      dispatch({
-        type: USER_VALUES_LOAD_SUCCESS,
-        payload: res.data
-      })
+      dispatch({ type: USER_VALUES_LOAD_SUCCESS, payload: res.data })
     )
     .catch(err => {
-      dispatch({
-        type: USER_VALUES_LOAD_FAILURE,
-        payload: "error loading values" + err
-      });
+      dispatch({ type: USER_VALUES_LOAD_FAILURE, payload: "error loading values" + err });
     });
 };
 
@@ -107,16 +101,10 @@ export const putUserValues = value => dispatch => {
   return axiosWithAuth()
     .put(`api/users/${id}/prompt`, value)
     .then(res => {
-      dispatch({
-        type: USER_VALUES_PUT_SUCCESS,
-        payload: res.data
-      });
+      dispatch({ type: USER_VALUES_PUT_SUCCESS, payload: res.data });
     })
     .catch(err => {
-      dispatch({
-        type: USER_VALUES_PUT_FAILURE,
-        payload: "error putting values data" + err
-      });
+      dispatch({ type: USER_VALUES_PUT_FAILURE, payload: err.response });
     });
 };
 

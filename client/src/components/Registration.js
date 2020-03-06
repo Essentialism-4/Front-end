@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React /*, { useState }*/ from 'react';
 import { connect, useDispatch } from 'react-redux';
-import axios from 'axios';
+// import axios from 'axios';
 import * as Yup from 'yup';
 import { withFormik, Form, Field } from 'formik';
 import { Link } from 'react-router-dom'
@@ -176,7 +176,7 @@ font-weight: 600;
 // ********************** STYLED COMPONENTS END ********************************
 
 let Registration = ({ values, isSubmitting, isValidating, errors, touched, postUser }) => {
-    let [newRegistration, setNewRegistration] = useState([]);
+    // let [newRegistration, setNewRegistration] = useState([]);
     const dispatch = useDispatch();
 
     const handleClick = async() => {
@@ -185,8 +185,8 @@ let Registration = ({ values, isSubmitting, isValidating, errors, touched, postU
               register({ username: values.username, password: values.password })
             );
             history.push("/");
-          } catch (err) {
-            console.log(err);
+          } catch(err) {
+             window.alert(err);
           }
     }
 
@@ -199,8 +199,6 @@ let Registration = ({ values, isSubmitting, isValidating, errors, touched, postU
     //     status&&setNewRegistration (newRegistration => [...newRegistration, status])
     // }, [status]);
 
-    console.log(newRegistration)
-    console.log(values)
     return (
         <Body>
             <Container className='reg-page-container'>
@@ -254,73 +252,3 @@ export default withFormik({
         resetForm();
     }
 })(connect(null, { register })(Registration));
-
-// export default FormikRegistration
-
-// const SignUpForm = props => {
-//     // console.log("this is props in Signupform", props);
-//     const initialState = {
-//       firstName: "",
-//       lastName: "",
-//       email: "",
-//       password: ""
-//     };
-  
-//     const [payload, setPayload] = useState(initialState);
-  
-//     const changeHandler = e => {
-//       setPayload({ ...payload, [e.target.name]: e.target.value }); // setting change handler to the "name" attribute. Avoids having to add handler to each input
-//     };
-  
-//     const submitHandler = e => {
-//       e.preventDefault();
-//       console.log("this is the object", payload);
-//       props.register(payload);
-//       setPayload({
-//         firstName: "",
-//         lastName: "",
-//         password: ""
-//       });
-//       props.history.push("/select-values");
-//     };
-//     return (
-//       <div>
-//         <form className="form" onSubmit={submitHandler}>
-//             <div>
-//               <label>
-//                 <input
-//                   className="input"
-    
-//                   type="text"
-//                   name="firstName"
-//                   value={payload.firstName}
-//                   onChange={changeHandler}
-//                   placeholder="Enter First Name here"
-//                 />
-//               </label>
-//             </div>
-  
-//           <div>
-//             <label>
-//               <input
-//                 className="input"
-
-//                 type="text"
-//                 name="password"
-//                 value={payload.password}
-//                 onChange={changeHandler}
-//                 placeholder="Enter Password here"
-//               />
-//             </label>
-//           </div>
-  
-//           <div>
-//               <button type="submit">Sign-Up!</button>
-//               <p>Already have an account with us? <Link to = '/'>Click Here</Link></p>
-//           </div>
-//         </form>
-//       </div>
-//     );
-//   };
-  
-
