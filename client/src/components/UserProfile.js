@@ -7,16 +7,11 @@ import { putUserInvolvement } from "../store/actions/userValueActions";
 
 import styled from 'styled-components';
 
-// ********************** STYLED COMPONENTS ******************************************
-let ValuesContaier = styled.div`
+// ********************** STYLED COMPONENTS *******************************************
+let Body = styled.body`
 display: flex;
-flex-direction: row;
-flex-flow: wrap;
-justify-content: center;
-border: 2px solid rgba(255, 255, 255, 0.2);
-width: 75%;
-margin-top: 5%;
-margin-bottom: 2%;
+flex-direction: column;
+align-items: center;
 `;
 
 let Values = styled.div`
@@ -26,10 +21,39 @@ padding: 0 2%;
 margin: 1%;
 line-height: 25px;
 font-weight: 400;
-;
+font-size: 1.3rem;
+text-align: center;
+width: 40%;
+border-left: none;
+border-right: none;
+margin-top: 35px;
 `;
 
-let Body = styled.form`
+let SavedValues = styled.div`
+color: rgba(255, 255, 255, 0.75);
+border: 2px solid rgba(255, 255, 255, 0.2);
+padding: 0 2%;
+margin: 1%;
+line-height: 25px;
+font-weight: 400;
+font-size: 1.3rem;
+text-align: center;
+width: 40%;
+`;
+
+let FormContainer = styled.div`
+width: 80%;
+`;
+
+let SavedBodyForm = styled.form`
+display: flex;
+flex-direction: column;
+align-items: center;
+margin: auto;
+width: 80%;
+`;
+
+let BodyForm = styled.form`
 display: flex;
 flex-direction: column;
 align-items: center;
@@ -42,8 +66,10 @@ font-weight: 300;
 width: 50%;
 border-radius: 7px;
 padding: 7px 0;
+margin: .5% 0;
 font-size: 1.3rem;
 text-align: center;
+width: 50%;
 &:hover, :focus{
   box-shadow: 0 0 3px 2px rgb(0, 136, 255);
     outline: none;
@@ -67,7 +93,7 @@ margin: 35px;
     text-shadow: 5px 5px 50px white, 0 0 25px blueviolet, 0 0 5px white;
 }
 `;
-// ********************** STYLED COMPONENTS END***************************************
+// ********************** STYLED COMPONENTS END ***************************************
 
 const UserProfile = () => {
   const [userInput, setUserInput] = useState("");
@@ -102,8 +128,9 @@ const UserProfile = () => {
   };
 
   return (
-    <div>
-      <div>
+    <Body>
+      <Navigation/>
+      <Values>
         {values.map(value => {
           return (
             <>
@@ -111,33 +138,33 @@ const UserProfile = () => {
             </>
           );
         })}
-      </div>
-      <div>
+      </Values>
+      <FormContainer className='form-input-container'>
         {isEditing ? (
-          <>
-            <p>{userInput}</p>
-            <p>{involvment}</p>
-            <button onClick={handleEdit}>Edit</button>
-          </>
+          <SavedBodyForm>
+            <SavedValues>{userInput}</SavedValues>
+            <SavedValues>{involvment}</SavedValues>
+            <Button onClick={handleEdit}>Edit</Button>
+          </SavedBodyForm>
         ) : (
-          <form onSubmit={handleSubmit}>
-            <input
+          <BodyForm onSubmit={handleSubmit}>
+            <Input
               name="reason"
               type="text"
               onChange={handleChanges}
               placeholder="Explain your reason for choosing this value."
             />
-            <input
+            <Input
               name="involvment"
               type="text"
               onChange={handleInvolvment}
               placeholder="What are some things you've involved yourself in that tie in with your values."
             />
-            <button type="submit">Save</button>
-          </form>
+            <Button type="submit">Save</Button>
+          </BodyForm>
         )}
-      </div>
-    </div>
+      </FormContainer>
+    </Body>
   );
 };
 
