@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { putUserValues } from "../store/actions/userValueActions";
 import { putUserInvolvement } from "../store/actions/userValueActions";
@@ -10,6 +10,7 @@ const UserProfile = () => {
   const [isEditing, setIsEditing] = useState(false);
 
   const dispatch = useDispatch();
+  const isProfileSet = useSelector(state => state.userValues.isProfileSet);
 
   const top3 = localStorage.getItem("top3");
   const values = JSON.parse(top3);

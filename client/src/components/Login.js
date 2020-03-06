@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { connect, useDispatch } from 'react-redux';
+import { connect, useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import * as Yup from 'yup';
 import { withFormik, Form, Field } from 'formik';
@@ -157,10 +157,14 @@ let Login = ({ values, status, errors, touched, isSubmitting}) => {
     let [userData, setUserData] = useState({username: '', password: ''})
 
     const dispatch = useDispatch();
+    const isProfileSet = useSelector(state => state.userValues.isProfileSet)
 
     const handleClick = () => {
         console.log(values)
         dispatch(login(values)) 
+        // if(isProfileSet){
+        //     history.push(`/user-profile`)
+        // }
         history.push('/select-values')
     }
 

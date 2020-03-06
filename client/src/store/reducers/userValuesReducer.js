@@ -30,7 +30,8 @@ import {
         custom_value: '',
         value_description: ""
       }
-    ]
+    ],
+    isProfileSet: false
   };
   
   const userValuesReducer = (state = initialState, action) => {
