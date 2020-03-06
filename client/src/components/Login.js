@@ -12,7 +12,7 @@ import Logo from '../images/logofull@2x.png';
 
 // ********************** STYLED COMPONENTS ********************************
 
-let Body = styled.body`
+let Body = styled.section`
 display: flex;
 flex-direction: column;
 align-items: center;

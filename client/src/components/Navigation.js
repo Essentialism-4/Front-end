@@ -7,7 +7,7 @@ import Logo2 from '../images/logo-small-2.png';
 
 // ********************* STYLED COMPONENTS *************************************
 
-let Body = styled.body`
+let Body = styled.section`
 width: 100%;
 padding-top: 20px;
 `;

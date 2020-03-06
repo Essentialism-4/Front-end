@@ -14,7 +14,7 @@ import RegImg from '../images/essentialism.png'
 
 // ********************** STYLED COMPONENTS ********************************
 
-let Body = styled.body`
+let Body = styled.section`
 display: flex;
 flex-direction: column;
 align-items: center;
