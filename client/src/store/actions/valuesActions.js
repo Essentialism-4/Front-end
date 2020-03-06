@@ -27,54 +27,38 @@ export const getValues = id => dispatch => {
   return axiosWithAuth()
     .get(`/api/values`)
     .then(res => {
-        console.log('This is response of getValues', res)
-      dispatch({
-        type: VALUES_LOAD_SUCCESS,
-        payload: res.data
-      });
-      console.log(res)
+      dispatch({ type: VALUES_LOAD_SUCCESS, payload: res.data['All values']});
+
       localStorage.setItem("values", JSON.stringify(res.data['All values']));
     })
     .catch(err => {
-      console.log(err);
-      dispatch({ type: VALUES_LOAD_FAILURE });
-    });
-};
-
-export const postValues = value => dispatch => {
-  dispatch({ type: VALUES_POST_START, payload: value });
-  return axiosWithAuth()
-    .post(`/values`, value)
-    .then(res => {
-      dispatch({
-        type: VALUES_POST_SUCCESS,
-        payload: res.data
-      });
-    })
-    .catch(err => {
-      dispatch({
-        type: VALUES_POST_FAILURE,
-        payload: "error posting data" + err
-      });
+      dispatch({ type: VALUES_LOAD_FAILURE, payload: err.response });
     });
 };
 
 export const putValues = value => dispatch => {
+  const id = localStorage.getItem('id');
+  dispatch({ type: VALUES_POST_START, payload: value });
+  return axiosWithAuth()
+    .put(`/api/users/${id}/values/top`, value)
+    .then(res => {
+      dispatch({ type: VALUES_POST_SUCCESS, payload: res.data});
+    })
+    .catch(err => {
+      dispatch({ type: VALUES_POST_FAILURE, payload: err.response });
+    });
+};
+
+export const postValues = value => dispatch => {
   dispatch({ type: VALUES_PUT_START, payload: value });
   return axiosWithAuth()
     .post(`/values`, value)
     .then(res => {
-      dispatch({
-        type: VALUES_PUT_SUCCESS,
-        payload: res.data
-      });
+      dispatch({ type: VALUES_PUT_SUCCESS, payload: res.data });
     })
     .then(() => localStorage.setItem("userValues", JSON.stringify(value)))
     .catch(err => {
-      dispatch({
-        type: VALUES_PUT_FAILURE,
-        payload: "error putting values data" + err
-      });
+      dispatch({ type: VALUES_PUT_FAILURE, payload: err.response });
     });
 };
 
@@ -83,23 +67,11 @@ export const deleteValues = id => dispatch => {
   return axiosWithAuth()
     .delete(`/values/${id}`)
     .then(res => {
-      dispatch({
-        type: VALUES_DELETE_SUCCESS,
-        payload: res.data
-      });
+      dispatch({ type: VALUES_DELETE_SUCCESS, payload: res.data });
     })
     .catch(err => {
-      dispatch({
-        type: VALUES_DELETE_FAILURE,
-        payload: "error deleting values data" + err
-      });
+      dispatch({ type: VALUES_DELETE_FAILURE, payload: err.response });
     });
-};
-export const confirmTopTempList = value => dispatch => {
-  dispatch({
-    type: ADD_TO_TOP_TEMP_LIST,
-    payload: value
-  });
 };
 
 export const confirmTopList = value => dispatch => {

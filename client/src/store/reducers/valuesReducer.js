@@ -14,13 +14,7 @@ import {
   } from "../actions/valuesActions";
   
   const initialState = {
-    values: [
-      {
-        id: "",
-        value: "",
-        value_description: ""
-      }
-    ]
+    values: [{}]
   };
   
   const valuesReducer = (state = initialState, action) => {
